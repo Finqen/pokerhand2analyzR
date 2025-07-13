@@ -36,5 +36,70 @@ find_threat_hands("QH QS", "9C TD JH", 2)
 evaluate_hand_strength("AS AH", "9H TC JC")
 evaluate_hand_strength("QH QS", "9C TD JH AS KC", 2)
 
-
 ```
+
+## Map for cards
+
+Cards are represented as simple strings that get converted to internal numeric values for processing.
+
+### Input Format
+Cards are written as **two characters**: `[Rank][Suit]`
+
+```r
+"AS"    # Ace of Spades
+"KH"    # King of Hearts  
+"QC"    # Queen of Clubs
+"JD"    # Jack of Diamonds
+"TC"    # Ten of Clubs
+"9S"    # Nine of Spades
+"2H"    # Two of Hearts
+```
+
+### Rank Mapping
+| Card | Internal Value | Description |
+|------|---------------|-------------|
+| `2`  | 0             | Two         |
+| `3`  | 1             | Three       |
+| `4`  | 2             | Four        |
+| `5`  | 3             | Five        |
+| `6`  | 4             | Six         |
+| `7`  | 5             | Seven       |
+| `8`  | 6             | Eight       |
+| `9`  | 7             | Nine        |
+| `T`  | 8             | Ten         |
+| `J`  | 9             | Jack        |
+| `Q`  | 10            | Queen       |
+| `K`  | 11            | King        |
+| `A`  | 12            | Ace         |
+
+### Suit Mapping
+| Symbol | Suit     |
+|--------|----------|
+| `H`    | Hearts   |
+| `D`    | Diamonds |
+| `C`    | Clubs    |
+| `S`    | Spades   |
+
+## Usage Examples
+
+### Single Hand
+```r
+# Pair of Aces
+evaluate_hand_strength("AS AH", "9H TC JC")
+
+# King-Queen suited
+evaluate_hand_strength("KS QS", "JS 8S 2H")
+```
+
+### Multiple Cards
+```r
+# Full board (Texas Hold'em)
+evaluate_hand_strength("AS KH", "QC JD TS 9H 8C")
+
+# Threat analysis
+find_threat_hands("AS KH", "QS JS 7S")  # Flush draw on board
+```
+
+### Special Notes
+
+- **Ten notation**: Use `T` for ten (not `10`)
