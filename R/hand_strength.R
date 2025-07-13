@@ -29,7 +29,18 @@ evaluate_hand_strength <- function(my_hand, board = "", opponents = 1) {
   ))
 }
 
-# Parse card string into rank indices and suits
+#' Parse card string into rank indices and suits
+#'
+#' Converts a string of cards into a list of card objects with rank and suit components.
+#' Handles standard poker notation where ranks are 2-9, T, J, Q, K, A and suits are H, D, C, S.
+#'
+#' @param card_string String containing cards separated by spaces (e.g., "AS KH QC")
+#' @return List of card objects, each containing rank (0-12) and suit components
+#' @export
+#' @examples
+#' parse_cards("AS KH QC")
+#' parse_cards("9H TC JC QS KC")
+#' parse_cards("")  # Returns empty list
 parse_cards <- function(card_string) {
   if (card_string == "" || is.na(card_string)) return(list())
 
@@ -54,7 +65,21 @@ parse_cards <- function(card_string) {
   return(result)
 }
 
-# Evaluate poker hand (adapted from Python algorithm)
+#' Evaluate poker hand strength (adapted from Python algorithm)
+#'
+#' Determines the poker hand ranking for a given set of cards. Handles 5-card hands
+#' directly and finds the best 5-card combination for hands with more than 5 cards.
+#'
+#' @param cards List of card objects with rank and suit components
+#' @return List containing hand score (0-8) and sorted rank vector for tie-breaking
+#' @export
+#' @examples
+#' cards <- parse_cards("AS KH QC JD TS")
+#' evaluate_hand(cards)
+#'
+#' # With more than 5 cards (finds best 5-card hand)
+#' cards <- parse_cards("AS AH AC AD 2S 3H 4C")
+#' evaluate_hand(cards)
 evaluate_hand <- function(cards) {
   if (length(cards) == 0) return(list(score = 0, ranks = c()))
 
@@ -147,7 +172,19 @@ evaluate_hand <- function(cards) {
   return(list(score = score, ranks = ranks_vec))
 }
 
-# Compare two rank vectors
+#' Compare two rank vectors for poker hand tie-breaking
+#'
+#' Compares two rank vectors to determine which represents a stronger hand.
+#' Used for tie-breaking when hands have the same score.
+#'
+#' @param ranks1 First rank vector (numeric)
+#' @param ranks2 Second rank vector (numeric)
+#' @return Integer: 1 if ranks1 > ranks2, -1 if ranks1 < ranks2, 0 if equal
+#' @export
+#' @examples
+#' compare_ranks(c(12, 11, 10), c(12, 11, 9))  # Returns 1 (first is higher)
+#' compare_ranks(c(12, 11, 9), c(12, 11, 10))  # Returns -1 (second is higher)
+#' compare_ranks(c(12, 11, 10), c(12, 11, 10)) # Returns 0 (equal)
 compare_ranks <- function(ranks1, ranks2) {
   for (i in 1:min(length(ranks1), length(ranks2))) {
     if (ranks1[i] != ranks2[i]) {
@@ -157,7 +194,18 @@ compare_ranks <- function(ranks1, ranks2) {
   return(0)
 }
 
-# Get hand type name from score
+#' Get hand type name from numeric score
+#'
+#' Converts a numeric hand score (0-8) into a readable hand type name.
+#'
+#' @param score Numeric hand score (0-8 where 0=High Card, 8=Straight Flush)
+#' @return Character string with hand type name
+#' @export
+#' @examples
+#' get_hand_name(0)  # "High Card"
+#' get_hand_name(1)  # "One Pair"
+#' get_hand_name(8)  # "Straight Flush"
+#' get_hand_name(99) # "Unknown"
 get_hand_name <- function(score) {
   names <- c("High Card", "One Pair", "Two Pair", "Three of a Kind",
              "Straight", "Flush", "Full House", "Four of a Kind", "Straight Flush")
@@ -167,7 +215,18 @@ get_hand_name <- function(score) {
   return("Unknown")
 }
 
-# Get base win strength from hand score
+#' Get base win strength from hand score
+#'
+#' Returns the estimated win probability for a given hand type against a single opponent.
+#' These are pre-calculated probabilities based on poker hand strength analysis.
+#'
+#' @param score Numeric hand score (0-8)
+#' @return Numeric base win probability (0-1)
+#' @export
+#' @examples
+#' get_base_strength(0)  # 0.15 (High Card)
+#' get_base_strength(1)  # 0.42 (One Pair)
+#' get_base_strength(8)  # 0.98 (Straight Flush)
 get_base_strength <- function(score) {
   # Pre-calculated win rates for different hand types
   strengths <- c(0.15, 0.42, 0.58, 0.72, 0.78, 0.82, 0.88, 0.95, 0.98)

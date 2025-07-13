@@ -20,6 +20,15 @@ Data frame with threat types and probabilities
 Find potential threat hands based on board texture
 }
 \examples{
+# Basic flush threat detection
 find_threat_hands("AS KH", "QS JS 7S")
+
+# Multiple threats with more opponents
 find_threat_hands("QH QS", "9C TD JH", 2)
+
+# Paired board creating set threats
+find_threat_hands("AS KH", "QQ 7C")
+
+# Connected board creating straight threats
+find_threat_hands("AS KH", "9H TC JC")
 }

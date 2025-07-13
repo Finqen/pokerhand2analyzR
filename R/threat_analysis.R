@@ -7,8 +7,17 @@
 #' @return Data frame with threat types and probabilities
 #' @export
 #' @examples
+#' # Basic flush threat detection
 #' find_threat_hands("AS KH", "QS JS 7S")
+#'
+#' # Multiple threats with more opponents
 #' find_threat_hands("QH QS", "9C TD JH", 2)
+#'
+#' # Paired board creating set threats
+#' find_threat_hands("AS KH", "QQ 7C")
+#'
+#' # Connected board creating straight threats
+#' find_threat_hands("AS KH", "9H TC JC")
 find_threat_hands <- function(my_hand, board = "", opponents = 1) {
   if (board == "" || is.na(board)) {
     return(data.frame(
@@ -100,6 +109,12 @@ find_threat_hands <- function(my_hand, board = "", opponents = 1) {
   return(threats)
 }
 
+#' Calculate flush threat probability
+#'
+#' @param suited_count Number of suited cards on board
+#' @param opponents Number of opponents
+#' @return Numeric probability of flush threat
+#' @export
 calculate_flush_threat <- function(suited_count, opponents) {
   base_probs <- c(0, 0, 0, 0.12, 0.35, 0.90)  # Index by suited_count
   if (suited_count <= 5) {
@@ -112,6 +127,12 @@ calculate_flush_threat <- function(suited_count, opponents) {
   return(min(0.95, base_prob * (1 + opponents * 0.15)))
 }
 
+#' Calculate straight threat probability
+#'
+#' @param ranks Vector of card ranks on board
+#' @param opponents Number of opponents
+#' @return Numeric probability of straight threat
+#' @export
 calculate_straight_threat <- function(ranks, opponents) {
   # Check for consecutive sequences
   sorted_ranks <- sort(unique(ranks))
@@ -134,6 +155,12 @@ calculate_straight_threat <- function(ranks, opponents) {
   return(min(0.70, base_prob * (1 + opponents * 0.20)))
 }
 
+#' Calculate set/full house threat probability
+#'
+#' @param pair_count Number of cards of same rank on board
+#' @param opponents Number of opponents
+#' @return Numeric probability of set/full house threat
+#' @export
 calculate_set_threat <- function(pair_count, opponents) {
   if (pair_count == 2) {
     base_prob <- 0.08  # Pair on board
@@ -146,6 +173,12 @@ calculate_set_threat <- function(pair_count, opponents) {
   return(min(0.85, base_prob * (1 + opponents * 0.10)))
 }
 
+#' Calculate overpair threat probability
+#'
+#' @param max_board_rank Highest rank on board (0-12, where 12 = Ace)
+#' @param opponents Number of opponents
+#' @return Numeric probability of overpair threat
+#' @export
 calculate_overpair_threat <- function(max_board_rank, opponents) {
   # Higher ranks available (12 = Ace)
   higher_ranks <- max(0, 12 - max_board_rank)
