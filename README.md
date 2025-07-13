@@ -80,26 +80,6 @@ Cards are written as **two characters**: `[Rank][Suit]`
 | `C`    | Clubs    |
 | `S`    | Spades   |
 
-## Usage Examples
-
-### Single Hand
-```r
-# Pair of Aces
-evaluate_hand_strength("AS AH", "9H TC JC")
-
-# King-Queen suited
-evaluate_hand_strength("KS QS", "JS 8S 2H")
-```
-
-### Multiple Cards
-```r
-# Full board (Texas Hold'em)
-evaluate_hand_strength("AS KH", "QC JD TS 9H 8C")
-
-# Threat analysis
-find_threat_hands("AS KH", "QS JS 7S")  # Flush draw on board
-```
-
 ### Special Notes
 
 - **Ten notation**: Use `T` for ten (not `10`)
