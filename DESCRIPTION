@@ -15,5 +15,5 @@ Suggests:
     knitr,
     rmarkdown
 VignetteBuilder: knitr
-URL: https://github.com/yourusername/PokerAnalyzer
+URL: https://github.com/finqen/pokerhand2analyzR
 Config/testthat/edition: 3
