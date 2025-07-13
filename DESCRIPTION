@@ -1,0 +1,19 @@
+Package: pokerhand2analyzR
+Title: Texas Hold'em Poker Hand Analysis
+Version: 1.0.0
+Author: Julian Finkenzeller <julian.finkenzeller@outlook.de> 
+Maintainer: Julian Finkenzeller <julian.finkenzeller@outlook.de>
+Description: Analyzes Texas Hold'em poker hands to calculate winning probabilities
+    and identify potential threat hands.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+Depends: R (>= 3.5.0)
+Suggests: 
+    testthat (>= 3.0.0),
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
+URL: https://github.com/yourusername/PokerAnalyzer
+Config/testthat/edition: 3
