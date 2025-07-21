@@ -4,7 +4,11 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of pokerhand2analyzR is to ...
+pokerhand2analyzR
+(“R” for “er” as a common word pun in packages)
+is an analysis tool for Texas Hold’em poker hands to calculate winning probabilities and identify potential threat hands based on the algorithm from user “dansalmo” and “Chris Moore” from this link:
+
+[https://stackoverflow.com/questions/10363927/the-simplest-algorithm-for-poker-hand-evaluation](https://stackoverflow.com/questions/10363927/the-simplest-algorithm-for-poker-hand-evaluation)
 
 ## Installation
 
